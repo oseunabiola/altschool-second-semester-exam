@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 function Repos() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,7 @@ function Repos() {
     }
 
     fetchRepoOwner();
-  }, [totalPages]);
+  }, []);
 
   useEffect(() => {
     async function fetchRepoList() {
@@ -70,18 +71,6 @@ function Repos() {
 }
 
 export default Repos;
-
-function Loader() {
-  return (
-    <div className="d-flex col-12 col-md-6 mx-auto">
-      <div className="loading mx-auto" style={{ marginTop: "40%" }}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  );
-}
 
 function Pagination({ currentPage, totalPages, setCurrentPage }) {
   return (
@@ -140,7 +129,7 @@ function RepoCard({ repo }) {
   return (
     <div className="p-3 border-1 mb-3 rounded" style={{ flex: "" }}>
       <div className="h4">
-        <Link to={`${repo.id}`}>{repo.name}</Link>
+        <Link to={`${repo.name}`}>{repo.name}</Link>
       </div>
       <div className="text-muted d-flex align-items-center fs-6">
         <small className="d-inline-flex fw-bold rounded-pill border-1 px-2 me-3">

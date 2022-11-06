@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Link, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import { Outlet } from "react-router-dom/dist";
 import ErrorBoundary from "./components/ErrorBoundary";
 import PageNotFound from "./components/PageNotFound";
 import Repo from "./pages/Repo";
@@ -13,11 +14,11 @@ export default function App() {
           <Link to="/not-found">404 Page</Link>
         </div>
         <Routes>
-          <Route path="/" element={<Navigate to="/repos" />} />
           <Route path="/error-boundary" element={<ErrorBoundaryPage />} />
-          <Route path="/repos" element={<Repos />}>
+          <Route path="/repos" element={<NestedRouteParent />}>
             <Route index element={<Repos />} />
-            <Route path=":id" element={<Repo />} />
+            <Route path="" element={<Repos />} />
+            <Route path=":name" element={<Repo />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -28,4 +29,8 @@ export default function App() {
 
 function ErrorBoundaryPage() {
   throw "Oops! Something went wrong!";
+}
+
+function NestedRouteParent() {
+  return <Outlet />;
 }
