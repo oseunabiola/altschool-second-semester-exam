@@ -53,62 +53,11 @@ function Repos() {
   return (
     <div className="m-3 col-12 col-md-10 col-lg-6 mx-auto">
       <div className="repo-owner my-4">
-        <div className="d-flex align-items-center">
-          <div className="col-2">
-            <img
-              className="img-thumbnail rounded-circle"
-              src={`${repoOwner.avatar_url}`}
-              alt="Repo owner avatar"
-            />
-          </div>
-          <div className="ps-4">
-            <div className="text-muted">
-              <a href={repoOwner.html_url} target="_blank" rel="noopener noreferrer">
-                <h1 className="h3 mb-0 text-white">{repoOwner.name}</h1>
-              </a>
-              <div className="d-flex flex-wrap" style={{ fontSize: "0.8rem" }}>
-                <div className="d-flex">
-                  <div className="d-flex me-2">
-                    <i className="bi bi-at"> </i>
-                    {repoOwner.login}
-                  </div>
-                  <div className="me-2">
-                    <i className="bi bi-geo-alt"> </i>
-                    {repoOwner.location}
-                  </div>
-                  <div className="me-3">
-                    <i className="bi bi-journal-bookmark"> </i>
-                    {repoOwner.public_repos} public repos
-                  </div>
-                  <div className="">
-                    <i className="bi bi-people"> </i>
-                    {repoOwner.followers} followers.
-                    {repoOwner.following} following
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <RepoOwner repoOwner={repoOwner} />
       </div>
       <div className="mb-5">
         {repos?.slice(firstUserIndex, lastUserIndex)?.map((_repo, index) => (
-          <div className="p-3 border-1 mb-3 rounded" style={{ flex: "" }} key={index}>
-            <div className="h4">
-              <Link to={`${_repo.id}`}>{_repo.name}</Link>
-            </div>
-            <div className="text-muted d-flex align-items-center fs-6">
-              <small className="d-inline-flex fw-bold rounded-pill border-1 px-2 me-3">
-                {_repo.private ? "Private" : "Public"}
-              </small>
-              <div className="me-3">
-                <small>Forks: {_repo.forks}</small>
-              </div>
-              <div>
-                <small>Last updated: {new Date(_repo.updated_at).toDateString()}</small>
-              </div>
-            </div>
-          </div>
+          <RepoCard repo={_repo} key={index} />
         ))}
       </div>
       <Pagination
@@ -140,18 +89,18 @@ function Pagination({ currentPage, totalPages, setCurrentPage }) {
       <div className="d-flex mx-auto">
         <div className="mx-auto p-1 border-1 rounded-1">
           <button
-            className="p-1 me-1"
+            className="py-1 px-2 me-1"
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}
           >
-            First
+            <i className="bi bi-chevron-double-left"></i>
           </button>
           <button
-            className="p-1 me-1"
+            className="py-1 px-2 me-1"
             onClick={() => setCurrentPage((prev) => prev - 1 || 1)}
             disabled={currentPage === 1}
           >
-            Prev
+            <i className="bi bi-chevron-left"></i>
           </button>
           <select
             className="me-1"
@@ -168,19 +117,82 @@ function Pagination({ currentPage, totalPages, setCurrentPage }) {
           </select>
 
           <button
-            className="p-1 me-1"
+            className="py-1 px-2 me-1"
             onClick={() => setCurrentPage((prev) => (prev < totalPages ? prev + 1 : totalPages))}
             disabled={currentPage === totalPages}
           >
-            Next
+            <i className="bi bi-chevron-right"></i>
           </button>
           <button
-            className="p-1 me-1"
+            className="py-1 px-2 me-1"
             onClick={() => setCurrentPage(totalPages)}
             disabled={currentPage === totalPages}
           >
-            Last
+            <i className="bi bi-chevron-double-right"></i>
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RepoCard({ repo }) {
+  return (
+    <div className="p-3 border-1 mb-3 rounded" style={{ flex: "" }}>
+      <div className="h4">
+        <Link to={`${repo.id}`}>{repo.name}</Link>
+      </div>
+      <div className="text-muted d-flex align-items-center fs-6">
+        <small className="d-inline-flex fw-bold rounded-pill border-1 px-2 me-3">
+          {repo.private ? "Private" : "Public"}
+        </small>
+        <div className="me-3">
+          <small>Forks: {repo.forks}</small>
+        </div>
+        <div>
+          <small>Last updated: {new Date(repo.updated_at).toDateString()}</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RepoOwner({ repoOwner }) {
+  return (
+    <div className="d-flex align-items-center">
+      <div className="col-2">
+        <img
+          className="img-thumbnail rounded-circle"
+          src={`${repoOwner.avatar_url}`}
+          alt="Repo owner avatar"
+        />
+      </div>
+      <div className="ps-4">
+        <div className="text-muted">
+          <a href={repoOwner.html_url} target="_blank" rel="noopener noreferrer">
+            <h1 className="h3 mb-0 text-white">{repoOwner.name}</h1>
+          </a>
+          <div className="d-flex flex-wrap" style={{ fontSize: "0.8rem" }}>
+            <div className="d-flex">
+              <div className="d-flex me-2">
+                <i className="bi bi-at"> </i>
+                {repoOwner.login}
+              </div>
+              <div className="me-2">
+                <i className="bi bi-geo-alt"> </i>
+                {repoOwner.location}
+              </div>
+              <div className="me-3">
+                <i className="bi bi-journal-bookmark"> </i>
+                {repoOwner.public_repos} public repos
+              </div>
+              <div className="">
+                <i className="bi bi-people"> </i>
+                {repoOwner.followers} followers.
+                {repoOwner.following} following
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
