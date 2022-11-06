@@ -38,17 +38,24 @@ function Repo() {
 
   return (
     <div className="m-3 col-12 col-md-10 col-lg-6 mx-auto">
-      <div className="border-1 p-3 rounded">
+      <div className="border-1 p-3 my-5 rounded">
         <div className="mb-4">
           <div className="d-flex align-items-center">
             <a className="me-2" href={repo.html_url} target="_blank" rel="noopener noreferrer">
-              <h1 className="h2">{repo.name}</h1>
+              <h1 className="h3">{repo.full_name}</h1>
             </a>
             <i className="text-muted bi bi-box-arrow-up-right"></i>
           </div>
           <div className="text-muted d-flex align-items-center fs-6">
             <small className="d-inline-flex fw-bold rounded-pill border-1 px-2 me-3">
               {repo.private ? "Private" : "Public"}
+            </small>
+            <small className="me-3">
+              {repo.parent ? (
+                <span>
+                  forked from: <a href={`${repo.parent.html_url}`}>{`${repo.parent.full_name}`}</a>
+                </span>
+              ) : null}
             </small>
             <div className="me-3">
               <small>Forks: {repo.forks}</small>

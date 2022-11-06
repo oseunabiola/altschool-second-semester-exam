@@ -158,9 +158,12 @@ function RepoOwner({ repoOwner }) {
       </div>
       <div className="ps-4">
         <div className="text-muted">
-          <a href={repoOwner.html_url} target="_blank" rel="noopener noreferrer">
-            <h1 className="h3 mb-0 text-white">{repoOwner.name}</h1>
-          </a>
+          <div className="d-flex align-items-center">
+            <a className="me-2" href={repoOwner.html_url} target="_blank" rel="noopener noreferrer">
+              <h1 className="h3 mb-0 text-white">{repoOwner.name}</h1>
+            </a>
+            <i className="text-muted bi bi-box-arrow-up-right"></i>
+          </div>
           <div className="d-flex flex-wrap" style={{ fontSize: "0.8rem" }}>
             <div className="d-flex">
               <div className="d-flex me-2">

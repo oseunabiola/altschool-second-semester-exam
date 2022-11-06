@@ -28,7 +28,7 @@ export default function App() {
 }
 
 function ErrorBoundaryPage() {
-  throw "Oops! Something went wrong!";
+  throw new Error("Oops! Something went wrong!");
 }
 
 function NestedRouteParent() {
