@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
-import { Outlet } from "react-router-dom/dist";
+import { BrowserRouter as Router, Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
 import PageNotFound from "./components/PageNotFound";
 import Repo from "./pages/Repo";
@@ -14,6 +13,7 @@ export default function App() {
           <Link to="/not-found">404 Page</Link>
         </div>
         <Routes>
+          <Route path="/" element={<Navigate to="/repos" replace />} />
           <Route path="/error-boundary" element={<ErrorBoundaryPage />} />
           <Route path="/repos" element={<NestedRouteParent />}>
             <Route index element={<Repos />} />
