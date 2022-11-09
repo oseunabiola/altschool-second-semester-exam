@@ -52,7 +52,7 @@ function Repos() {
     );
 
   return (
-    <div className="m-3 col-12 col-md-10 col-lg-6 mx-auto">
+    <div className="p-3 m-3 col-12 col-md-10 col-lg-6 mx-auto">
       <div className="repo-owner my-4">
         <RepoOwner repoOwner={repoOwner} />
       </div>
